@@ -10,9 +10,11 @@ You are encouraged to use the provided naming convention for ease of review.
 /* create variables to hold the values for modelName and duration */
 
 // INSERT YOUR CODE HERE
+document.addEventListener("DOMContentLoaded", function() {
+    let modelName = "XYZ"; 
+    let duration = 0; 
+    
 
-let modelName = "XYZ";
-let duration = 0;
 /****************** helper function ******************/
 /* create a function called recalculate() which will
     - create a variable to represent the calculated-cost span element. That will look something like:
@@ -26,12 +28,17 @@ let duration = 0;
 // INSERT YOUR CODE HERE
 
 function recalculate() {
-    
     let costLabel = document.getElementById("calculated-cost");
+
     let costPerDay = modelName === "XYZ" ? 100 : 213;
+
     let totalCost = duration * costPerDay;
+
     costLabel.innerHTML = totalCost.toFixed(2);
 }
+
+
+
 /****************** model button logic ******************/
 
 /* 
@@ -47,10 +54,10 @@ function recalculate() {
 // INSERT YOUR CODE HERE
 
 let modelButton = document.getElementById("model-button");
-
 function changeModel() {
+    console.log("Switching model...");
     let modelText = document.getElementById("model-text");
-    
+
     if (modelName === "XYZ") {
         modelName = "CPRG";
         modelText.innerHTML = "Model CPRG";
@@ -58,10 +65,11 @@ function changeModel() {
         modelName = "XYZ";
         modelText.innerHTML = "Model XYZ";
     }
-    
+
     recalculate();
 }
 modelButton.addEventListener("click", changeModel);
+
 
 /****************** duration button logic ******************/
 /*  - first, create a variable to represent the "Change Duration" pseudo-button.
@@ -75,22 +83,24 @@ modelButton.addEventListener("click", changeModel);
 */
 
 // INSERT YOUR CODE HERE
-
 let durationButton = document.getElementById("duration-button");
 
 function changeDuration() {
     let durationText = document.getElementById("duration-text");
-  
-    let newDuration = prompt("Enter the new duration in days:", duration);
-    
+
+    let userInput = prompt("Enter the number of days for rental:", duration);
+    console.log("User input:", userInput);
+    let newDuration = parseInt(userInput);
     if (!isNaN(newDuration) && newDuration >= 0) {
-        duration = parseInt(newDuration, 10);
+        duration = newDuration;
         durationText.innerHTML = duration;
-     
-        recalculate();
     } else {
-        alert("Please enter a valid non-negative number.");
+        alert("Please enter a valid number of days.");
     }
+   
+    recalculate();
 }
 
+
 durationButton.addEventListener("click", changeDuration);
+});
